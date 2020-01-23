@@ -1,0 +1,5 @@
+com\algaworks\cobranca\controller\TituloController.class
+com\algaworks\cobranca\model\StatusTitulo.class
+com\algaworks\cobranca\CobrancaApplication.class
+com\algaworks\cobranca\model\Titulo.class
+com\algaworks\cobranca\repository\Titulos.class

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator:="LayoutPadrao"
+	lang="en">
+
+
+<title>Cadastro de titulo</title>
+</head>
+
+
+<section layout:fragment="conteudo">
+	<form class="form-horizontal" method="POST" action="/titulos">
+
+		<div class="alert alert-success"
+			th:if="${!#strings.isEmpty(mensagem)}">
+
+			<span th:text="${mensagem}">Titulo salvo com sucesso!</span>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<h1 class="card-title">Novo Titulo</h1>
+			</div>
+			<div class="card-body">
+				<label for="descricao" class="col-md-2 col-form-label">Descrição</label>
+				<div class="col-md-4">
+					<input type="text" class="form-control" id="descricao"
+						name="descricao">
+				</div>
+				<label for="dataVencimento" class="col-md-2 col-form-label">Data
+					de vencimento</label>
+				<div class="col-md-2">
+					<input type="text" class="form-control" id="dataVencimento"
+						name="dataVencimento" />
+				</div>
+				<label for="valor" class="col-sm-2 control-label">Valor</label>
+				<div class="col-md-2">
+					<input type="text" class="form-control" id="Valor" name="valor" />
+				</div>
+				<label for="status" class="col-md-2 col-form-label">Status</label>
+				<div class="col-md-2">
+					<select class="form-control" name="status">
+						<option th:each="status : ${todosStatusTitulo}"
+							th:value="${status}" th:text="${status.descricao}"></option>
+					</select>
+				</div>
+				<div class="col-md-offset-2  col-md-10">
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</section>
+</html>

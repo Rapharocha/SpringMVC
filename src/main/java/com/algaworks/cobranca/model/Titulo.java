@@ -15,7 +15,9 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
+
 //Uma entidade para mandar para o banco de dados
+
 @Entity
 public class Titulo {
 
@@ -24,7 +26,7 @@ public class Titulo {
 	//Como quero que seja gerado 
 	//           V
 	@GeneratedValue(strategy = GenerationType.IDENTITY)// <----- ESTRATÉGIA PARA DEIXAR O BANCO DE DADOS TOMAR CONTA 
-	private Long codigo;
+	private long codigo;
 	
 	
 	private String descricao;
@@ -40,12 +42,13 @@ public class Titulo {
 	
 	@Enumerated(EnumType.STRING)//String para salvar, os valores de StatusTitulo no banco de dados.
 	private StatusTitulo status;
-	public Long getCodigo() {
+	public long getCodigo() {
 		return codigo;
 	}
-	public void setCodigo(Long codigo) {
+	public void setCodigo(long codigo) {
 		this.codigo = codigo;
 	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -76,7 +79,7 @@ public class Titulo {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + (int) (codigo ^ (codigo >>> 32));
 		return result;
 	}
 	@Override
@@ -88,13 +91,9 @@ public class Titulo {
 		if (getClass() != obj.getClass())
 			return false;
 		Titulo other = (Titulo) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
+		if (codigo != other.codigo)
 			return false;
 		return true;
 	}
-	
 	
 }

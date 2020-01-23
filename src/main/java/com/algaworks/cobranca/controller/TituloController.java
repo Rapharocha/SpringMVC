@@ -1,11 +1,16 @@
 package com.algaworks.cobranca.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.algaworks.cobranca.model.StatusTitulo;
 import com.algaworks.cobranca.model.Titulo;
 import com.algaworks.cobranca.repository.Titulos;
 
@@ -20,8 +25,12 @@ public class TituloController {
 	
 	
 	@RequestMapping("/novo") //Quando digitar no browser vai entrar nesse método.
-	public String novo() {
-		return "CadastroTitulo";
+	public ModelAndView novo() {
+		
+		ModelAndView mv= new ModelAndView("CadastroTitulo");
+//Pra deixar esse cara Disponivel no html || retorna um array do StatusTitulo.
+		mv.addObject("todosStatusTitulo", StatusTitulo.values());
+		return mv;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -39,5 +48,15 @@ public class TituloController {
 		//e mandará para o span após utilizar thymeleaf
 		mv.addObject("mensagem", "Título salvo com sucesso!!!");
 		return mv;
+	}
+	
+	@RequestMapping
+	public String pesquisar() {
+		return "PesquisaTitulos";
+	}
+	
+	@ModelAttribute("todosStatusTitulo")
+	public List<StatusTitulo> todosStatusTitulo(){
+		return Arrays.asList(StatusTitulo.values());
 	}
 }
