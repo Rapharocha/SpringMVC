@@ -3,8 +3,9 @@
 <html xmlns="https://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org/"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator:="LayoutPadrao"
+	layout:decorate="LayoutPadrao"
 	lang="en">
+<meta charset="UTF-8">
 <title>Pesquisa de titulos</title>
 </head>
 
@@ -12,25 +13,42 @@
 
 	<div class="card">
 		<div class="card-header">
-			<h1 class="card-title">Pesquisa de Titulo</h1>
+		<div class="clearfix">
+			<h1 class="card-title aw-titulo-card">Pesquisa de Titulo</h1>
+			<a class="btn btn-link aw-link-card" href="/titulos/novo">Novo t√≠tulo</a> 
+	    </div>
 		</div>
 
 		<div class="card-body">
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th class="text-center col-lg-1">#</th>
-						<th>DescriÁ„o</th>
-						<th class="text-center col-lg-2">Data de vencimento</th>
-						<th class="text-right col-lg-2">Valor</th>
-						<th class="text-center col-lg-2">Status</th>
-						<th class="col-lg-1"></th>
+						<th class="text-center">#</th>
+						<th>Descri√ß√£o</th>
+						<th class="text-center">Data de vencimento</th>
+						<th class="text-right">Valor</th>
+						<th class="text-center">Status</th>
+						<th></th>
 					</tr>
 				</thead>
 
 				<tbody>
+				
+				     <tr th:each="titulo : ${titulos}">
+				       <td class="text-center" th:text="${titulo.codigo}">1</td>
+				       <td th:text="${titulo.descricao}"></td>
+				       <td class="text-center" th:text="${{titulo.dataVencimento}}"></td>
+				       <td class="text-right" th:text="|R$ ${{titulo.valor}} |"></td>
+				       <td class="text-center">
+				        <span class="badge" th:text="${titulo.status.descricao}" 
+				               th:classappend="${#strings.toString(titulo.status) == 'PENDENTE' ? 'badge-danger' : 'badge-success'}"></span>
+				       </td>
+				         <td class="text-center" ></td>
+				     </tr>
+				     
+				     
 					<tr>
-						<td colspan="6">Nenhum tÌtulo foi encontrado</td>
+						<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum t√≠tulo foi encontrado</td>
 					</tr>
 				</tbody>
 

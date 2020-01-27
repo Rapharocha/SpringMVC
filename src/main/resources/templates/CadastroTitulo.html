@@ -2,28 +2,29 @@
 <html xmlns="https://www.w3.org/1999/xhtml"
 	xmlns:th="https://www.thymeleaf.org/"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator:="LayoutPadrao"
+	layout:decorate="LayoutPadrao"
 	lang="en">
 
-
+<meta charset="UTF-8">
 <title>Cadastro de titulo</title>
 </head>
 
 
 <section layout:fragment="conteudo">
 	<form class="form-horizontal" method="POST" action="/titulos">
-
-		<div class="alert alert-success"
-			th:if="${!#strings.isEmpty(mensagem)}">
-
+		<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
 			<span th:text="${mensagem}">Titulo salvo com sucesso!</span>
 		</div>
+		
 		<div class="card">
 			<div class="card-header">
-				<h1 class="card-title">Novo Titulo</h1>
+				<div class="clearfix">
+			<h1 class="card-title aw-titulo-card">Novo TÃ­tulo</h1>
+			<a class="btn btn-link aw-link-card" href="/titulos">Voltar para pesquisa</a> 
+	    </div>  
 			</div>
 			<div class="card-body">
-				<label for="descricao" class="col-md-2 col-form-label">Descrição</label>
+				<label for="descricao" class="col-md-2 col-form-label">DescriÃ§Ã£o</label>
 				<div class="col-md-4">
 					<input type="text" class="form-control" id="descricao"
 						name="descricao">
