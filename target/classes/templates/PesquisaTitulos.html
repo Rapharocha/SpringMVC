@@ -5,8 +5,11 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="LayoutPadrao"
 	lang="en">
+
 <meta charset="UTF-8">
 <title>Pesquisa de titulos</title>
+
+
 </head>
 
 <section layout:fragment="conteudo">
@@ -43,7 +46,11 @@
 				        <span class="badge" th:text="${titulo.status.descricao}" 
 				               th:classappend="${#strings.toString(titulo.status) == 'PENDENTE' ? 'badge-danger' : 'badge-success'}"></span>
 				       </td>
-				         <td class="text-center" ></td>
+				         <td class="text-center">
+				           <a class="btn btn-link btn-xs" >
+				            <i class="fas fa-pencil-alt"></i>
+				           </a>
+				         </td>
 				     </tr>
 				     
 				     

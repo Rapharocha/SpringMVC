@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.cobranca.model.StatusTitulo;
 import com.algaworks.cobranca.model.Titulo;
@@ -28,6 +31,9 @@ public class TituloController {
 	public ModelAndView novo() {
 		
 		ModelAndView mv= new ModelAndView("CadastroTitulo");
+		mv.addObject(new Titulo());
+		
+		
 //Pra deixar esse cara Disponivel no html || retorna um array do StatusTitulo.
 		mv.addObject("todosStatusTitulo", StatusTitulo.values());
 		return mv;
@@ -37,17 +43,25 @@ public class TituloController {
 	
 	//Carrega nome da view e mais informações 
 	     //    V
-	public ModelAndView salvar(Titulo titulo) {
+	//public ModelAndView salvar(@Validated Titulo titulo , Errors errors, RedirectAttributes attributes ) {
+	  public String salvar(@Validated Titulo titulo , Errors errors, RedirectAttributes attributes) {	
+		//CONSTRUTOR RECEBE A VIEW QUE VAI RETORNAR
+	   //ModelAndView mv= new ModelAndView("CadastroTitulo");
+	    
+	    if(errors.hasErrors()) {
+	    	return "CadastroTitulo";
+	    }
+		
 		//SALVAR NO BANCO DE DADOS
 		titulos.save(titulo);
-		
-		//CONSTRUTOR RECEBE A VIEW QUE VAI RETORNAR
-		ModelAndView mv= new ModelAndView("CadastroTitulo");
-		
+	//ModelAndView mv2 = new ModelAndView("redirect:/titulos/novo");
+				
+		attributes.addFlashAttribute("mensagem", "Título salvo com sucesso!!!");		
+				
 		//atributo mensagem está disponivel da página do html
 		//e mandará para o span após utilizar thymeleaf
-		mv.addObject("mensagem", "Título salvo com sucesso!!!");
-		return mv;
+	//mv.addObject("mensagem", "Título salvo com sucesso!!!");
+		return "redirect:/titulos/novo";
 	}
 	
 	@RequestMapping
