@@ -86,6 +86,16 @@ public class TituloController {
 		return mv;
 	}
 	
+	//Para quando receber um código via DELETE cair no método Excluir.
+	@RequestMapping(value="{codigo}", method= RequestMethod.POST)
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+	  titulos.deleteById(codigo);
+	  
+	  attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!!!");
+	  return "redirect:/titulos";
+	}
+	
+	
 	
 	
 	@ModelAttribute("todosStatusTitulo")
