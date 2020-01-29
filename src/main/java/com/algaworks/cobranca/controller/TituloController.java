@@ -3,11 +3,14 @@ package com.algaworks.cobranca.controller;
 import java.util.Arrays;
 import java.util.List;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +24,10 @@ import com.algaworks.cobranca.repository.Titulos;
 @Controller  // Obrigatório em Spring
 @RequestMapping("/titulos")
 public class TituloController {
+	
+	private static final String CADASTRO_VIEW = "CadastroTitulo";
+	
+	
     
 	//Para instanciar e pode usar o repositório.
 	@Autowired
@@ -30,7 +37,7 @@ public class TituloController {
 	@RequestMapping("/novo") //Quando digitar no browser vai entrar nesse método.
 	public ModelAndView novo() {
 		
-		ModelAndView mv= new ModelAndView("CadastroTitulo");
+		ModelAndView mv= new ModelAndView(CADASTRO_VIEW);
 		mv.addObject(new Titulo());
 		
 		
@@ -49,7 +56,7 @@ public class TituloController {
 	   //ModelAndView mv= new ModelAndView("CadastroTitulo");
 	    
 	    if(errors.hasErrors()) {
-	    	return "CadastroTitulo";
+	    	return CADASTRO_VIEW;
 	    }
 		
 		//SALVAR NO BANCO DE DADOS
@@ -71,6 +78,15 @@ public class TituloController {
 		mv.addObject("titulos",todosTitulos);
 		return mv;
 	}
+	
+	@RequestMapping("{codigo}")
+	public ModelAndView edicao(@PathVariable("codigo")Titulo titulo) {
+		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
+		mv.addObject(titulo);
+		return mv;
+	}
+	
+	
 	
 	@ModelAttribute("todosStatusTitulo")
 	public List<StatusTitulo> todosStatusTitulo(){

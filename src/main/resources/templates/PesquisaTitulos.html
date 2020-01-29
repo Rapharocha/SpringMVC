@@ -47,7 +47,7 @@
 				               th:classappend="${#strings.toString(titulo.status) == 'PENDENTE' ? 'badge-danger' : 'badge-success'}"></span>
 				       </td>
 				         <td class="text-center">
-				           <a class="btn btn-link btn-xs" >
+				           <a class="btn btn-link btn-xs" th:href="@{/titulos/{codigo}(codigo=${titulo.codigo})}">
 				            <i class="fas fa-pencil-alt"></i>
 				           </a>
 				         </td>
